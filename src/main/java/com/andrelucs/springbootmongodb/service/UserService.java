@@ -30,4 +30,11 @@ public class UserService {
         User u = userRepository.save(obj);
         return u;
     }
+
+    public boolean deleteById(String id){
+        if(!userRepository.existsById(id)) return false;
+        
+        userRepository.deleteById(id);
+        return true;
+    }
 }

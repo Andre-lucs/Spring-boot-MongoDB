@@ -37,3 +37,10 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/?id={id}").buildAndExpand(response.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
+
+    @DeleteMapping(value = "/")
+    public ResponseEntity<String> deleteByID(@RequestParam("id") String id){
+        boolean deleted = userService.deleteById(id);
+        return ResponseEntity.status((deleted) ? 204 : 404).body((deleted) ? "Deleted" : "Not Found");
+    }
+}
