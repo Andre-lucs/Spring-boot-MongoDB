@@ -70,4 +70,8 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public boolean haveNullAtb(){
+        return name == null || email == null;
+    }
 }
