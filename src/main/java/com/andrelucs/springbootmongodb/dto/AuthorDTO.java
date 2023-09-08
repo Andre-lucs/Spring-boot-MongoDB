@@ -1,22 +1,19 @@
 package com.andrelucs.springbootmongodb.dto;
 
 import com.andrelucs.springbootmongodb.domain.User;
-
-import java.io.Serializable;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class UserDTO implements Serializable {
+@AllArgsConstructor
+public class AuthorDTO {
     private String id;
     private String name;
-    private String email;
 
-    public UserDTO(){}
+    public AuthorDTO(){}
 
-    public UserDTO(User obj){
+    public AuthorDTO(User obj){
         id = obj.getId();
         name = obj.getName();
-        email = obj.getEmail();
     }
 }
