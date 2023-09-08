@@ -32,15 +32,24 @@ public class UserResource {
     }
 
     @PostMapping(value ="/")
-    public ResponseEntity<UserDTO> insert(@RequestBody User obj){
-        UserDTO response = new UserDTO(userService.insert(obj));
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/?id={id}").buildAndExpand(response.getId()).toUri();
-        return ResponseEntity.created(uri).body(response);
+    public ResponseEntity<Void> insert(@RequestBody UserDTO obj){
+		User user = userService.fromDTO(obj);
+        user = userService.insert(user);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/").queryParam("id", "{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping(value = "/")
-    public ResponseEntity<String> deleteByID(@RequestParam("id") String id){
-        boolean deleted = userService.deleteById(id);
-        return ResponseEntity.status((deleted) ? 204 : 404).body((deleted) ? "Deleted" : "Not Found");
+    public ResponseEntity<Void> deleteByID(@RequestParam("id") String id){
+        userService.deleteById(id);
+        return ResponseEntity.status(204).build();
     }
+
+	@PutMapping(value = "/")
+	public ResponseEntity<UserDTO> update(@RequestParam("id") String id, @RequestBody UserDTO obj){
+        User user = userService.fromDTO(obj);
+        user.setId(id);
+		UserDTO response = new UserDTO(userService.update(user));
+		return ResponseEntity.ok().body(response);
+	}
 }
