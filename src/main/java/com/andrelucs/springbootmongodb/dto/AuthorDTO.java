@@ -1,12 +1,10 @@
 package com.andrelucs.springbootmongodb.dto;
 
 import com.andrelucs.springbootmongodb.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class AuthorDTO {
+import java.io.Serializable;
+
+public class AuthorDTO implements Serializable {
     private String id;
     private String name;
 
@@ -16,4 +14,21 @@ public class AuthorDTO {
         id = obj.getId();
         name = obj.getName();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
